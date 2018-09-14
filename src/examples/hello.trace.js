@@ -1,7 +1,13 @@
-import { traceClassMethod } from '../instruments/trace'
+import { mainTracer, mainSpan, traceClassFunction, traceClassMethod } from '../instruments/trace'
 
-class Formatter {
+class Logger {
   @traceClassMethod()
+  printString(stringToPrint) {
+    console.log(stringToPrint)
+  }
+}
+class Formatter {
+  @traceClassFunction()
   formatString(stringToFormat) {
     return `Hello, ${stringToFormat}`
   }
@@ -9,4 +15,7 @@ class Formatter {
 
 const helloTo = process.argv[2]
 const formatter = new Formatter()
-console.log(formatter.formatString(helloTo))
+const logger = new Logger()
+logger.printString(formatter.formatString(helloTo))
+mainSpan.finish()
+mainTracer.close()

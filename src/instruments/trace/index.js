@@ -26,12 +26,14 @@ const initTracer = (serviceName) => {
   return initJaegerTracer(config, options)
 }
 
-export const traceClassMethod = () => {
-  const tracer = initTracer('decorator-test')
+export const mainTracer = initTracer('decorator-test')
+export const mainSpan = mainTracer.startSpan('app-flow')
+
+export const traceClassFunction = () => {
   return (target, name, descriptor) => {
     const originalFunction = descriptor.value
     if (typeof originalFunction === 'function') {
-      const span = tracer.startSpan(name)
+      const span = mainTracer.startSpan(name, { childOf: mainSpan })
       descriptor.value = (...args) => {
         span.setTag(`${name} parameters`, args)
         try {
@@ -41,8 +43,27 @@ export const traceClassMethod = () => {
             value: result
           })
           span.finish()
-          tracer.close()
           return result
+        } catch (error) {
+          console.error(`Error: ${error}`)
+          throw error
+        }
+      }
+    }
+  }
+}
+
+export const traceClassMethod = () => {
+  return (target, name, descriptor) => {
+    const originalFunction = descriptor.value
+    if (typeof originalFunction === 'function') {
+      const span = mainTracer.startSpan(name, { childOf: mainSpan })
+      descriptor.value = (...args) => {
+        span.setTag(`${name} parameters`, args)
+        try {
+          originalFunction.apply(this, args)
+          span.log({ event: `${name} executed` })
+          span.finish()
         } catch (error) {
           console.error(`Error: ${error}`)
           throw error
