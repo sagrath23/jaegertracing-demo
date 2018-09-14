@@ -10,6 +10,7 @@
   "keywords": [
     "babel"
   ],
+  "repository": "https://github.com/sagrath23/jaegertracing-demo",
   "author": "Steven Augusto Villegas Castellanos",
   "license": "MIT",
   "devDependencies": {
