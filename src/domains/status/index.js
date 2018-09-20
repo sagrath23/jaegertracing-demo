@@ -1,7 +1,7 @@
 import { version } from '../../../package.json'
 
 export const getStatus = () => {
-    return { status: 'OK' }
+    return { status: 'RUNNING' }
 }
 
 export const getVersion = () => {
