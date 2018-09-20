@@ -3,3 +3,6 @@ node_modules
 
 #distribution folder
 dist
+
+#coverage report
+coverage
