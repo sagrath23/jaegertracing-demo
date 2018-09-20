@@ -4,6 +4,9 @@
   "description": "testing babel features",
   "main": "src/index.js",
   "scripts": {
+    "prestart": "npm run build:babel",
+    "start": "node dist",
+    "start:dev": "nodemon -w src --exec \"npm run build:babel\"",
     "build:babel": "npx babel src --out-dir dist",
     "test": "jest"
   },
