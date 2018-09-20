@@ -6,7 +6,7 @@
   "scripts": {
     "prestart": "npm run build:babel",
     "start": "node dist",
-    "start:dev": "nodemon -w src --exec \"npm run build:babel\"",
+    "start:dev": "nodemon -w src --exec \"npm start\"",
     "build:babel": "npx babel src --out-dir dist",
     "test": "jest"
   },
