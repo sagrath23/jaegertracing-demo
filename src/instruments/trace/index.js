@@ -1,6 +1,6 @@
 import { initTracer as initJaegerTracer } from 'jaeger-client'
 
-const initTracer = (serviceName) => {
+export const initTracer = (serviceName) => {
   const config = {
     serviceName,
     sampler: {
