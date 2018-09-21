@@ -11,7 +11,7 @@ node_js:
   - "9"
 before_install:
     - "npm config set spin false"
-    - "npm install -g npm@^3"
+    - "npm install -g npm@^5"
 install:
     - npm install
 script:
