@@ -1,10 +1,10 @@
 import { Router } from 'express'
-import { getStatus, getVersion } from '../controllers/statusController'
+import { getStatusController, getVersion } from '../controllers/statusController'
 
 export default ({config}) => {
     let api = Router()
 
-    api.get('/', getStatus)
+    api.get('/', getStatusController)
 
     api.get('/version', getVersion)
 

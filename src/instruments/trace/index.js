@@ -72,3 +72,19 @@ export const traceClassMethod = () => {
     }
   }
 }
+
+export const traceFunction = (functionToTrace) => {
+  const functionName = functionToTrace.name
+
+  return (...args) => {
+    const [req] = args
+    const parentSpan = req.span
+    if (parentSpan) {
+      parentSpan.log()
+      const result = functionToTrace.apply(this, args)
+      console.log(`result: ${result}`)
+
+      return result
+    }
+  }
+}

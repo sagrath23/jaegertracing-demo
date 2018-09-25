@@ -6,6 +6,7 @@ import bodyParser from 'body-parser'
 import { Tags } from 'opentracing'
 import api from './api'
 import config from './config.js'
+import { traceMiddleware } from './middlewares/trace' 
 import { initTracer } from './instruments/trace'
 // initialize tracer for start server
 const tracer = initTracer('init-service')
@@ -32,7 +33,7 @@ app.use(bodyParser.json({
 span.log({ event: 'body limit added', value: config.bodyLimit })
 
 // app's router
-app.use('/api', api({ config }))
+app.use('/api', traceMiddleware ,api({ config }))
 span.log({ event: 'routes added' })
 
 // handle error when start server
