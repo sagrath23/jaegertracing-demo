@@ -30,7 +30,7 @@ span.log({ event: 'cors added' })
 app.use(bodyParser.json({
   limit: config.bodyLimit
 }))
-span.log({ event: 'body limit added', value: config.bodyLimit })
+span.log({ event: 'body limit added', size: config.bodyLimit })
 
 // app's router
 app.use('/api', traceMiddleware ,api({ config }))
@@ -57,7 +57,7 @@ app.server.listen(process.env.PORT || config.port, () => {
 
 span.log({
   event: 'starting server',
-  value: config.port
+  port: config.port
 })
 
 export default app
