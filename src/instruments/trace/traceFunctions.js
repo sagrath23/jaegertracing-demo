@@ -21,15 +21,27 @@ const wrapFunction = (functionToWrap) => {
   console.log(`wrapping ${functionName}`)
 
   return (...args) => {
-    console.log(args, 'args')
-    const result = functionToWrap.apply(this, args)
-
-    return result
+    const [req] = args
+    const { tracer } = req
+    // create a span 
+    const span = tracer.startSpan(functionName)
+    span.setTag(`${functionName} parameters`, req.body)
+    try {
+      const result = functionToWrap.apply(this, args)
+      span.log({
+        event: `${functionName} result`,
+        value: result
+      })
+      span.finish()
+      return result
+    } catch(err)  {
+      //handle any exception here
+      // TODO: handle span finish & send error here
+      throw err
+    }
   }
 }
 
 export const trace = (...params) => {
-  console.log('tracing functions...')
-  console.log(params, 'params')
   return wrapFunction
 }
