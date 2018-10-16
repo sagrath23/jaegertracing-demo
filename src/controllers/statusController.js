@@ -1,8 +1,7 @@
 import { getStatusService, getVersionService } from '../services/status'
-import { traceFunction } from '../instruments/trace'
 
 export const getStatus = (req, res) => {
-  res.json(getStatusService())
+  res.json(getStatusService(req))
 }
 
 export const getVersion = (req, res) => {

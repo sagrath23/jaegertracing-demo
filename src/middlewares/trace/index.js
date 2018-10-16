@@ -1,5 +1,5 @@
 import { Tags, FORMAT_HTTP_HEADERS } from 'opentracing'
-import { initTracer } from '../../instruments/trace'
+import { initTracer } from '../../instruments/tracer'
 
 // trace middleware extract a span from req.header (if it was sent to the service),
 // create a new span and inject in req properties to make it available to next functions
@@ -22,6 +22,15 @@ export const traceMiddleware = (req, res, next) => {
   span.log({event: 'api-middleware call', value: req})
   //set span to req
   req.span = span
+  console.log('attaching span to req')
   //and execute next middleware
   next()
 }
+
+// this middleware only initialize the tracer per each request
+export const tracerMiddleware = (req, res, next) =>{
+  const tracer = initTracer('api-services')
+  req.tracer = tracer
+  console.log('tracer initialized in middleware')
+  next()
+} 

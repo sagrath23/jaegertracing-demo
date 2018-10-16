@@ -1,11 +1,11 @@
 import { version } from '../../../package.json'
 import { trace } from '../../instruments/trace'
 
-const status = () => {
+const status = (req) => {
     return { status: 'RUNNING' }
 }
 
-export const getStatus = trace('main-tracer')(status)
+export const getStatus = trace('status-domain')(status)
 
 export const getVersion = () => {
     return { version }
