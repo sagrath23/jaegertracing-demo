@@ -33,7 +33,7 @@ app.use(bodyParser.json({
 span.log({ event: 'body limit added', size: config.bodyLimit })
 
 // app's router
-app.use('/api', tracerMiddleware ,api({ config }))
+app.use('/api/v1', tracerMiddleware ,api({ config }))
 span.log({ event: 'routes added' })
 
 // handle error when start server

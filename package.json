@@ -6,6 +6,7 @@
   "scripts": {
     "prestart": "npm run build:babel",
     "start": "node dist",
+    "start:dev:local": "nodemon -w src --exec \"npm start\"",
     "start:dev": "npm run start:jaeger && nodemon -w src --exec \"npm start\"",
     "build:babel": "npx babel src --out-dir dist",
     "start:jaeger": "docker start jaeger",

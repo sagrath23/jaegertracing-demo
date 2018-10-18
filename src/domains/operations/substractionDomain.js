@@ -1,0 +1,1 @@
+export const substract = (firstOperand, secondOperand) => (firstOperand - secondOperand)
