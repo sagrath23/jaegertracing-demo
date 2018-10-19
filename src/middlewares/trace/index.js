@@ -20,7 +20,7 @@ export const tracerMiddleware = (req, res, next) => {
       tags: { [Tags.SPAN_KIND]: Tags.SPAN_KIND_RPC_SERVER }
     })
   } else {
-    span = tracer.startSpan('http_server')
+    span = tracer.startSpan('tracer-middleware')
   }
   span.log({event: 'api-middleware call', value: { body: req.body, query: req.query, params: req.params}})
   //set tracer to req
