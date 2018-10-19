@@ -1,4 +1,6 @@
-import { initTracer } from '../tracer'
+let spanName
+let parentSpan
+let tracer
 
 export const traceFunction = (functionToTrace) => {
   const functionName = functionToTrace.name
@@ -42,6 +44,6 @@ const wrapFunction = (functionToWrap) => {
   }
 }
 
-export const trace = (...params) => {
+export const trace = (spanName, parentSpan, tracer) => {
   return wrapFunction
 }

@@ -1,1 +1,0 @@
-export const divide = (firstOperand, secondOperand) => (firstOperand / secondOperand)
