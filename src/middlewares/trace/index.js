@@ -8,7 +8,7 @@ export const tracerMiddleware = (req, res, next) => {
   // TODO: tracer.extract didn't return null when a span isn't sent
   // check if this is an issue of jaeger-client package
   const parentSpanContext = tracer.extract(FORMAT_HTTP_HEADERS, req.headers)
-  let span;
+  let span
 
   console.log(parentSpanContext, 'passing for middleware...')
 
@@ -18,7 +18,7 @@ export const tracerMiddleware = (req, res, next) => {
     span = tracer.startSpan('http_server', {
       childOf: parentSpanContext,
       tags: { [Tags.SPAN_KIND]: Tags.SPAN_KIND_RPC_SERVER }
-    });
+    })
   } else {
     span = tracer.startSpan('http_server')
   }
@@ -30,12 +30,3 @@ export const tracerMiddleware = (req, res, next) => {
   //and execute next middleware
   next()
 }
-
-// this middleware only initialize the tracer per each request
-/*
-export const tracerMiddleware = (req, res, next) =>{
-  const tracer = initTracer('api-services')
-  req.tracer = tracer
-  console.log('tracer initialized in middleware')
-  next()
-} */

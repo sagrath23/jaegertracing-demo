@@ -4,7 +4,7 @@ import { doOperationService } from '../services/operations'
 
 // TODO: figure out how to instrument this in a better way
 export const doOperation = (req, res) => {
-  const { tracer, rootSpan } = req;
+  const { tracer, rootSpan } = req
   const controllerSpan = tracer.startSpan('operations-controller', {
     childOf: rootSpan.context(),
     [Tags.SPAN_KIND]: Tags.SPAN_KIND_RPC_SERVER

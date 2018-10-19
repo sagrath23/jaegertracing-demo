@@ -45,7 +45,7 @@ app.server.on('error', (err) => {
   })
   span.finish()
   tracer.close()
-});
+})
 
 // and start it
 app.server.listen(process.env.PORT || config.port, () => {
