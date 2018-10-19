@@ -1,7 +1,8 @@
 import { doOperation } from '../../domains/operations'
+import { trace } from '../../instruments/trace'
 import { Tags } from 'opentracing'
 
-export const doOperationService = (...params) => {
+export const doOperationInstrumentedService = (...params) => {
   const [firstOperand, secondOperand, operation, controllerSpan, tracer] = params
   const serviceSpan = tracer.startSpan('operations-service', {
     childOf: controllerSpan.context(),
@@ -15,12 +16,18 @@ export const doOperationService = (...params) => {
       operation
     }
   })
-  const domainRresult = doOperation(firstOperand, secondOperand, operation, serviceSpan, tracer)
+  const domainResult = doOperation(tracer, serviceSpan, firstOperand, secondOperand, operation)
   serviceSpan.log({
     event: 'domain result',
-    value: domainRresult
+    value: domainResult
   })
   serviceSpan.finish()
 
-  return domainRresult
+  return domainResult
 }
+
+const useOperationDomain = (...args) => {
+  return doOperation(...args)
+}
+
+export const doOperationService = trace()(useOperationDomain)

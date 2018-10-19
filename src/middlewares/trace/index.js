@@ -10,8 +10,11 @@ export const tracerMiddleware = (req, res, next) => {
   const parentSpanContext = tracer.extract(FORMAT_HTTP_HEADERS, req.headers)
   let span;
 
+  console.log(parentSpanContext, 'passing for middleware...')
+
   // this is a workaround
   if (parentSpanContext._traceId) {
+    console.log('have a parent span!!!!')
     span = tracer.startSpan('http_server', {
       childOf: parentSpanContext,
       tags: { [Tags.SPAN_KIND]: Tags.SPAN_KIND_RPC_SERVER }
@@ -22,8 +25,8 @@ export const tracerMiddleware = (req, res, next) => {
   span.log({event: 'api-middleware call', value: { body: req.body, query: req.query, params: req.params}})
   //set tracer to req
   req.tracer = tracer
-  console.log('tracer attached to req')
-  span.finish()
+  //and add span to req
+  req.rootSpan = span
   //and execute next middleware
   next()
 }
