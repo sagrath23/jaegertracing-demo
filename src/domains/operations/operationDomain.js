@@ -1,5 +1,13 @@
 import { trace } from '../../instruments/trace'
 
+const add = (firstOperand, secondOperand) => (firstOperand + secondOperand)
+
+const substract = (firstOperand, secondOperand) => (firstOperand - secondOperand)
+
+const multiply = (firstOperand, secondOperand) => (firstOperand * secondOperand)
+
+const divide = (firstOperand, secondOperand) => (firstOperand / secondOperand)
+
 export const calculate = (...args) => {
   const operations = {
     add,
@@ -13,13 +21,5 @@ export const calculate = (...args) => {
   
   return { result: operations[operation](firstOperand, secondOperand) }
 }
-
-const add = (firstOperand, secondOperand) => (firstOperand + secondOperand)
-
-const substract = (firstOperand, secondOperand) => (firstOperand - secondOperand)
-
-const multiply = (firstOperand, secondOperand) => (firstOperand * secondOperand)
-
-const divide = (firstOperand, secondOperand) => (firstOperand / secondOperand)
 
 export const doOperation = trace()(calculate)
