@@ -10,10 +10,10 @@ const divide = (firstOperand, secondOperand) => (firstOperand / secondOperand)
 
 export const calculate = (...args) => {
   const operations = {
-    add,
-    substract,
-    multiply,
-    divide
+    addition: add,
+    subtraction: substract,
+    multiplication: multiply,
+    division: divide
   }
 
   //if i want to instrument in detail, can use tracer & parent span to make it
