@@ -11,7 +11,7 @@
     "build:babel": "npx babel src --out-dir dist",
     "start:jaeger": "docker start jaeger",
     "stop:jaeger": "docker stop jaeger",
-    "install:jaeger": "docker run -d --name jaeger -e COLLECTOR_ZIPKIN_HTTP_PORT=9411 -p 5775:5775/udp -p 6831:6831/udp -p 6832:6832/udp -p 5778:5778 -p 16686:16686 -p 14268:14268 -p 9411:9411 jaegertracing/all-in-one:1.7",
+    "install:jaeger": "docker run -d --name jaeger -e COLLECTOR_ZIPKIN_HTTP_PORT=9411 -p 5775:5775/udp -p 6831:6831/udp -p 6832:6832/udp -p 5778:5778 -p 16686:16686 -p 14268:14268 -p 9411:9411 jaegertracing/all-in-one:1.13",
     "uninstall:jaeger": "npm run remove:jaeger:container && npm run remove:jaeger:image",
     "remove:jaeger:container": "docker rm jaeger",
     "remove:jaeger:image": "docker image rm jaegertracing/all-in-one:1.7",
@@ -30,14 +30,14 @@
     ]
   },
   "devDependencies": {
-    "@babel/cli": "^7.0.0",
-    "@babel/core": "^7.0.1",
+    "@babel/cli": "^7.4.4",
+    "@babel/core": "^7.4.5",
+    "@babel/node": "^7.2.2",
+    "@babel/plugin-proposal-class-properties": "^7.4.4",
     "@babel/plugin-proposal-decorators": "^7.0.0",
-    "@babel/preset-env": "^7.0.0",
-    "babel-core": "^7.0.0-bridge.0",
-    "babel-jest": "^24.1.0",
-    "babel-preset-es2015": "^6.24.1",
-    "babel-preset-stage-0": "^6.24.1",
+    "@babel/preset-env": "^7.3.1",
+    "@babel/register": "^7.0.0",
+    "babel-loader": "^8.0.5",
     "codacy-coverage": "^3.1.0",
     "eslint": "^5.5.0",
     "jest": "^24.1.0",
@@ -45,16 +45,16 @@
     "regenerator-runtime": "^0.12.1"
   },
   "dependencies": {
-    "@babel/polyfill": "^7.0.0",
-    "body-parser": "^1.18.3",
-    "compression": "^1.7.3",
-    "cors": "^2.8.4",
-    "express": "^4.16.3",
-    "jaeger-client": "^3.12.0",
+    "@babel/polyfill": "^7.4.4",
+    "body-parser": "^1.19.0",
+    "compression": "^1.7.4",
+    "cors": "^2.8.5",
+    "express": "^4.17.1",
+    "jaeger-client": "^3.15.0",
     "morgan": "^1.9.1",
-    "opentracing": "^0.14.3",
+    "opentracing": "^0.14.4",
     "resource-router-middleware": "^0.7.0",
-    "superagent": "^4.0.0-beta.5"
+    "superagent": "^5.1.0"
   },
   "resolutions": {
     "babel-core": "7.0.0-bridge.0"
